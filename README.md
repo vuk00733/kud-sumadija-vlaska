@@ -62,16 +62,18 @@ pristupom projektu pozove kroz sanity.io/manage → projekat → Members).
 
 Sajt je i dalje potpuno statičan — Sanity podaci se povlače **u trenutku
 build-a**, ne uživo. To znači da posle izmene u Studio-u treba da se sajt
-ponovo build-uje da bi se izmena videla. Da to bude automatsko:
+ponovo build-uje da bi se izmena videla.
 
-1. U Vercel projektu: Settings → Git → Deploy Hooks → napravi novi hook
-   (npr. "Sanity rebuild"), kopiraj URL.
+**Ovo je već podešeno** — Vercel Deploy Hook (`vercel-rebuild`) i Sanity
+webhook koji ga okida na svaku izmenu (create/update/delete u `production`
+dataset-u) su aktivni. Svaka izmena u Studio-u automatski pokreće novi
+Vercel deploy za ~30-60 sekundi.
+
+Ako ikad zatreba da se ovo ponovo podesi (npr. novi Vercel projekat):
+1. U Vercel projektu: Settings → Git → Deploy Hooks → napravi novi hook,
+   kopiraj URL.
 2. U Sanity: https://www.sanity.io/manage → projekat → API → Webhooks →
-   Add webhook. URL = Vercel deploy hook URL, Dataset = `production`,
-   Trigger on = Create/Update/Delete. Sačuvaj.
-
-Posle ovoga, svaka izmena u Studio-u (objavljena vest, novi događaj, nova
-slika u galeriji) automatski pokreće novi Vercel deploy za ~30-60 sekundi.
+   Add webhook. URL = Vercel deploy hook URL, Dataset = `production`.
 
 ### Šeme sadržaja
 
@@ -107,10 +109,6 @@ kroz Sanity Studio (upload slike uz svaki galleryItem).
   (`src/app/[locale]/kontakt/page.tsx`) stvarnim podacima društva.
 - Zameniti SVG placeholder ilustracije (sekcije/repertoar) stvarnim
   fotografijama — vidi `public/images/README.md`.
-- Podesiti Vercel Deploy Hook + Sanity webhook (vidi sekciju "CMS" iznad) da
-  se sajt automatski osvežava kad admin objavi izmenu.
-- Dodati env promenljive (`NEXT_PUBLIC_SANITY_PROJECT_ID`,
-  `NEXT_PUBLIC_SANITY_DATASET`) u Vercel projekat.
 - Pozvati admine (npr. osobu koja vodi vesti/događaje) kao člana Sanity
   projekta: sanity.io/manage → projekat → Members → Invite.
 - Proveriti da su datumi događaja u Sanity Studio-u i dalje tačni, i uneti
