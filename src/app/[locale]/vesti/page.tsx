@@ -3,6 +3,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { PlaceholderArt } from "@/components/PlaceholderArt";
 import { Link } from "@/i18n/navigation";
 import { newsItems } from "@/content/news";
+import { buildMetadata } from "@/lib/metadata";
 import type { AppLocale } from "@/i18n/routing";
 import type { Metadata } from "next";
 
@@ -12,9 +13,15 @@ export async function generateMetadata({
   params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    title: locale === "sr" ? "Вести | КУД Шумадија Влашка" : "News | KUD Šumadija Vlaška",
-  };
+  return buildMetadata({
+    locale,
+    path: "vesti",
+    title: locale === "sr" ? "Вести" : "News",
+    description:
+      locale === "sr"
+        ? "Све вести Културно-уметничког друштва Шумадија Влашка."
+        : "All news from KUD Šumadija Vlaška.",
+  });
 }
 
 export default async function NewsListPage({

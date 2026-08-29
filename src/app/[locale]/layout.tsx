@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { SITE_URL } from "@/lib/metadata";
+import "../globals.css";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -17,7 +19,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    metadataBase: new URL("https://kud-sumadija.rs"),
+    metadataBase: new URL(SITE_URL),
     title: {
       default: "КУД Шумадија Влашка",
       template: "%s",
@@ -26,12 +28,6 @@ export async function generateMetadata({
       locale === "sr"
         ? "Културно-уметничко друштво Шумадија Влашка"
         : "KUD Šumadija Vlaška Cultural and Artistic Society",
-    alternates: {
-      languages: {
-        sr: "/sr",
-        en: "/en",
-      },
-    },
   };
 }
 
@@ -49,10 +45,14 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   return (
-    <NextIntlClientProvider>
-      <Header />
-      <main className="min-h-screen">{children}</main>
-      <Footer />
-    </NextIntlClientProvider>
+    <html lang={locale}>
+      <body>
+        <NextIntlClientProvider>
+          <Header />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 }

@@ -9,7 +9,7 @@ export const repertoireRegions: RepertoireRegion[] = [
       { sr: "Шумадијска свита", en: "Šumadija Suite" },
     ],
     costumeNote: {
-      sr: "Ношња карактеришу тамна боја сукна и опанци са virnovima.",
+      sr: "Ношња карактеришу тамна боја сукна и опанци и чарапе.",
       en: "The costume features dark wool cloth and traditional opanci footwear.",
     },
   },

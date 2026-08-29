@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { SectionHeading } from "@/components/SectionHeading";
 import { PlaceholderArt } from "@/components/PlaceholderArt";
 import { galleryItems } from "@/content/gallery";
+import { buildMetadata } from "@/lib/metadata";
 import type { AppLocale } from "@/i18n/routing";
 import type { Metadata } from "next";
 
@@ -11,9 +12,15 @@ export async function generateMetadata({
   params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    title: locale === "sr" ? "Галерија | КУД Шумадија Влашка" : "Gallery | KUD Šumadija Vlaška",
-  };
+  return buildMetadata({
+    locale,
+    path: "galerija",
+    title: locale === "sr" ? "Галерија" : "Gallery",
+    description:
+      locale === "sr"
+        ? "Фотографије и тренуци Културно-уметничког друштва Шумадија Влашка."
+        : "Photos and moments from KUD Šumadija Vlaška.",
+  });
 }
 
 export default async function GalleryPage({

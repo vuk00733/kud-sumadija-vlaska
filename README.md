@@ -1,7 +1,7 @@
 # KUD Šumadija Vlaška — sajt
 
 Statički, dvojezičan (српски ћирилицом / engleski) sajt za Kulturno-umetničko
-društvo Šumadija, napravljen u Next.js-u.
+društvo Šumadija Vlaška, napravljen u Next.js-u.
 
 ## Razvoj
 
@@ -40,3 +40,11 @@ Izmena sadržaja = izmena tih fajlova + commit, bez CMS-a i baze.
 
 Prave fotografije treba dodati u `public/images/` — vidi
 `public/images/README.md`.
+
+## Pre lansiranja (before launch)
+
+- Zameniti placeholder broj telefona i email adresu na strani za kontakt
+  (`src/app/[locale]/kontakt/page.tsx`) stvarnim podacima društva.
+- Zameniti SVG placeholder ilustracije stvarnim fotografijama — vidi
+  `public/images/README.md`.
+- Proveriti da su datumi događaja (`src/content/events.ts`) i dalje tačni.

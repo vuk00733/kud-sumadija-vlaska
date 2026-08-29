@@ -4,7 +4,26 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { OrnamentDivider } from "@/components/OrnamentDivider";
 import { PlaceholderArt } from "@/components/PlaceholderArt";
 import { newsItems } from "@/content/news";
+import { buildMetadata } from "@/lib/metadata";
 import type { AppLocale } from "@/i18n/routing";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: AppLocale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isSr = locale === "sr";
+  return buildMetadata({
+    locale,
+    path: "",
+    title: isSr ? "КУД Шумадија Влашка" : "KUD Šumadija Vlaška",
+    description: isSr
+      ? "Чувамо и негујемо српску народну игру, музику и ношњу кроз генерације."
+      : "Preserving and nurturing Serbian folk dance, music, and costume across generations.",
+  });
+}
 
 export default async function HomePage({
   params,

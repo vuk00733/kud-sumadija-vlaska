@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { SectionHeading } from "@/components/SectionHeading";
 import { OrnamentDivider } from "@/components/OrnamentDivider";
+import { buildMetadata } from "@/lib/metadata";
 import type { AppLocale } from "@/i18n/routing";
 import type { Metadata } from "next";
 
@@ -10,13 +11,15 @@ export async function generateMetadata({
   params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    title: locale === "sr" ? "О нама | КУД Шумадија Влашка" : "About | KUD Šumadija Vlaška",
+  return buildMetadata({
+    locale,
+    path: "o-nama",
+    title: locale === "sr" ? "О нама" : "About",
     description:
       locale === "sr"
         ? "Историја и мисија Културно-уметничког друштва Шумадија Влашка."
         : "History and mission of KUD Šumadija Vlaška.",
-  };
+  });
 }
 
 export default async function AboutPage({

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { newsItems } from "@/content/news";
+import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -19,10 +20,12 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const item = newsItems.find((n) => n.slug === slug);
   if (!item) return {};
-  return {
-    title: `${item.title[locale]} | КУД Шумадија Влашка`,
+  return buildMetadata({
+    locale,
+    path: `vesti/${slug}`,
+    title: item.title[locale],
     description: item.excerpt[locale],
-  };
+  });
 }
 
 export default async function NewsDetailPage({

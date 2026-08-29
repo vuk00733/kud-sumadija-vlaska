@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { SectionHeading } from "@/components/SectionHeading";
+import { buildMetadata } from "@/lib/metadata";
 import type { AppLocale } from "@/i18n/routing";
 import type { Metadata } from "next";
 
@@ -9,9 +10,15 @@ export async function generateMetadata({
   params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    title: locale === "sr" ? "Контакт | КУД Шумадија Влашка" : "Contact | KUD Šumadija Vlaška",
-  };
+  return buildMetadata({
+    locale,
+    path: "kontakt",
+    title: locale === "sr" ? "Контакт" : "Contact",
+    description:
+      locale === "sr"
+        ? "Пронађите нас — адреса, контакт и мапа проба."
+        : "Find us — address, contact, and rehearsal map.",
+  });
 }
 
 export default async function ContactPage({
@@ -32,12 +39,14 @@ export default async function ContactPage({
             <strong>{isSr ? "Адреса проба:" : "Rehearsal address:"}</strong><br />
             {isSr ? "Дом културе, Крагујевац" : "House of Culture, Kragujevac"}
           </p>
+          {/* TODO: verify this is the society's real email before launch */}
           <p>
             <strong>Email:</strong><br />
             <a href="mailto:info@kud-sumadija.rs" className="text-[var(--color-bordo)] hover:underline">
               info@kud-sumadija.rs
             </a>
           </p>
+          {/* TODO: replace with the society's real phone number before launch */}
           <p>
             <strong>{isSr ? "Телефон:" : "Phone:"}</strong><br />
             +381 34 000 000
@@ -50,7 +59,7 @@ export default async function ContactPage({
           </a>
         </div>
         <iframe
-          title={isSr ? "Мапа лоакције проба" : "Rehearsal location map"}
+          title={isSr ? "Мапа локације проба" : "Rehearsal location map"}
           className="w-full h-64 md:h-full rounded-lg border-0"
           loading="lazy"
           src="https://www.openstreetmap.org/export/embed.html?bbox=20.90%2C44.00%2C20.95%2C44.03&layer=mapnik"

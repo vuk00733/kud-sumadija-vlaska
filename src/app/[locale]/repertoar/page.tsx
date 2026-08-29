@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { SectionHeading } from "@/components/SectionHeading";
 import { PlaceholderArt } from "@/components/PlaceholderArt";
 import { repertoireRegions } from "@/content/repertoire";
+import { buildMetadata } from "@/lib/metadata";
 import type { AppLocale } from "@/i18n/routing";
 import type { Metadata } from "next";
 
@@ -11,9 +12,15 @@ export async function generateMetadata({
   params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    title: locale === "sr" ? "Репертоар | КУД Шумадија Влашка" : "Repertoire | KUD Šumadija Vlaška",
-  };
+  return buildMetadata({
+    locale,
+    path: "repertoar",
+    title: locale === "sr" ? "Репертоар" : "Repertoire",
+    description:
+      locale === "sr"
+        ? "Игре и ношње по крајевима Србије у нашем репертоару."
+        : "Dances and costumes by region in our repertoire.",
+  });
 }
 
 export default async function RepertoirePage({

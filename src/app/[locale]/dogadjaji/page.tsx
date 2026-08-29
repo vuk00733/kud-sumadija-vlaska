@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { SectionHeading } from "@/components/SectionHeading";
 import { eventItems } from "@/content/events";
+import { buildMetadata } from "@/lib/metadata";
 import type { AppLocale } from "@/i18n/routing";
 import type { Metadata } from "next";
 
@@ -10,9 +11,15 @@ export async function generateMetadata({
   params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return {
-    title: locale === "sr" ? "Догађаји | КУД Шумадија Влашка" : "Events | KUD Šumadija Vlaška",
-  };
+  return buildMetadata({
+    locale,
+    path: "dogadjaji",
+    title: locale === "sr" ? "Догађаји" : "Events",
+    description:
+      locale === "sr"
+        ? "Предстојећи наступи Културно-уметничког друштва Шумадија Влашка."
+        : "Upcoming performances by KUD Šumadija Vlaška.",
+  });
 }
 
 export default async function EventsPage({
@@ -23,7 +30,11 @@ export default async function EventsPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const isSr = locale === "sr";
-  const sorted = [...eventItems].sort((a, b) => (a.date > b.date ? 1 : -1));
+  // Static export freezes "today" at build time — redeploy periodically to keep this accurate.
+  const today = new Date().toISOString().slice(0, 10);
+  const sorted = [...eventItems]
+    .filter((event) => event.date >= today)
+    .sort((a, b) => (a.date > b.date ? 1 : -1));
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16">

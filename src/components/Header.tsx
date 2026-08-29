@@ -16,12 +16,13 @@ const links = [
 
 export function Header() {
   const t = useTranslations("nav");
+  const tCommon = useTranslations("common");
 
   return (
     <header className="relative z-50 border-b border-[var(--color-gold)]/40 bg-[var(--color-cream)]">
       <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
         <Link href="/" className="font-bold text-lg text-[var(--color-bordo)]">
-          КУД Шумадија Влашка
+          {tCommon("orgName")}
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           {links.map((link) => (

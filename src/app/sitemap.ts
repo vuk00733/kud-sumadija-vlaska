@@ -1,10 +1,9 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { newsItems } from "@/content/news";
+import { SITE_URL } from "@/lib/metadata";
 
 export const dynamic = "force-static";
-
-const SITE_URL = "https://kud-sumadija.rs";
 
 const staticPaths = [
   "",
