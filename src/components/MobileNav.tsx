@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const links = [
   { href: "/", key: "home" },
@@ -46,6 +47,9 @@ export function MobileNav() {
               </li>
             ))}
           </ul>
+          <div className="border-t border-[var(--color-gold)]/40 px-4 py-3">
+            <LanguageSwitcher />
+          </div>
         </nav>
       )}
     </div>
