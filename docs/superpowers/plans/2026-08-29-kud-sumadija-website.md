@@ -1,8 +1,8 @@
-# KUD Šumadija Website Implementation Plan
+# KUD Šumadija Vlaška Website Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a static, bilingual (sr-Cyrillic default / en), mobile-first Next.js website for KUD Šumadija, deployable to Vercel with zero config.
+**Goal:** Build a static, bilingual (sr-Cyrillic default / en), mobile-first Next.js website for KUD Šumadija Vlaška, deployable to Vercel with zero config.
 
 **Architecture:** Next.js 15 App Router with `output: 'export'` (fully static HTML/CSS/JS, no server). Bilingual routing via `next-intl` using an always-prefixed `[locale]` segment (`/sr/...`, `/en/...`) — no middleware, since static export doesn't support it. All content (news, events, sections, repertoire, gallery) lives in typed TypeScript data modules under `src/content/`, not a database or CMS.
 
@@ -390,8 +390,8 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: "КУД Шумадија",
-  description: "Културно-уметничко друштво Шумадија",
+  title: "КУД Шумадија Влашка",
+  description: "Културно-уметничко друштво Шумадија Влашка",
 };
 
 export default async function LocaleLayout({
@@ -647,8 +647,8 @@ export const newsItems: NewsItem[] = [
     slug: "godisnji-koncert-2026",
     date: "2026-05-10",
     title: {
-      sr: "Годишњи концерт КУД Шумадија одржан пред пуном салом",
-      en: "KUD Šumadija's annual concert held before a full house",
+      sr: "Годишњи концерт КУД Шумадија Влашка одржан пред пуном салом",
+      en: "KUD Šumadija Vlaška's annual concert held before a full house",
     },
     excerpt: {
       sr: "Наше секције су представиле кореографије из свих крајева Србије.",
@@ -960,7 +960,7 @@ export function Header() {
     <header className="relative border-b border-[var(--color-gold)]/40 bg-[var(--color-cream)]">
       <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
         <Link href="/" className="font-bold text-lg text-[var(--color-bordo)]">
-          КУД Шумадија
+          КУД Шумадија Влашка
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           {links.map((link) => (
@@ -992,9 +992,9 @@ export function Footer() {
   return (
     <footer className="border-t border-[var(--color-gold)]/40 bg-[var(--color-navy)] text-[var(--color-cream)] mt-16">
       <div className="mx-auto max-w-6xl px-4 py-8 text-sm flex flex-col md:flex-row md:justify-between gap-4">
-        <p>КУД Шумадија</p>
+        <p>КУД Шумадија Влашка</p>
         <p>{t("address")}</p>
-        <p>&copy; {new Date().getFullYear()} КУД Шумадија. {t("rights")}</p>
+        <p>&copy; {new Date().getFullYear()} КУД Шумадија Влашка. {t("rights")}</p>
       </div>
     </footer>
   );
@@ -1027,8 +1027,8 @@ import { Footer } from "@/components/Footer";
 Run: `npm run build`
 Expected: build succeeds.
 
-Run: `grep -o "КУД Шумадија" out/sr/index.html | head -1`
-Expected: prints `КУД Шумадија`
+Run: `grep -o "КУД Шумадија Влашка" out/sr/index.html | head -1`
+Expected: prints `КУД Шумадија Влашка`
 
 Run: `grep -o "Sections" out/en/o-nama/index.html 2>/dev/null; echo done`
 Expected: prints `done` (page doesn't exist yet — this just confirms the command completes; real nav check below)
@@ -1081,7 +1081,7 @@ export default async function HomePage({
       <section className="relative bg-[var(--color-bordo)] text-[var(--color-cream)]">
         <div className="mx-auto max-w-6xl px-4 py-20 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            {isSr ? "Културно-уметничко друштво Шумадија" : "Šumadija Cultural and Artistic Society"}
+            {isSr ? "Културно-уметничко друштво Шумадија Влашка" : "Šumadija Vlaška Cultural and Artistic Society"}
           </h1>
           <p className="text-lg text-[var(--color-cream)]/85 max-w-2xl mx-auto">
             {isSr
@@ -1146,10 +1146,10 @@ export default async function HomePage({
 Run: `npm run build`
 Expected: build succeeds.
 
-Run: `grep -o "Културно-уметничко друштво Шумадија" out/sr/index.html`
+Run: `grep -o "Културно-уметничко друштво Шумадија Влашка" out/sr/index.html`
 Expected: prints the heading text.
 
-Run: `grep -o "Šumadija Cultural and Artistic Society" out/en/index.html`
+Run: `grep -o "Šumadija Vlaška Cultural and Artistic Society" out/en/index.html`
 Expected: prints the heading text.
 
 - [ ] **Step 3: Commit**
@@ -1186,11 +1186,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: locale === "sr" ? "О нама | КУД Шумадија" : "About | KUD Šumadija",
+    title: locale === "sr" ? "О нама | КУД Шумадија Влашка" : "About | KUD Šumadija Vlaška",
     description:
       locale === "sr"
-        ? "Историја и мисија Културно-уметничког друштва Шумадија."
-        : "History and mission of KUD Šumadija.",
+        ? "Историја и мисија Културно-уметничког друштва Шумадија Влашка."
+        : "History and mission of KUD Šumadija Vlaška.",
   };
 }
 
@@ -1212,8 +1212,8 @@ export default async function AboutPage({
       <div className="prose max-w-none text-[var(--color-navy)]/90 space-y-4">
         <p>
           {isSr
-            ? "Културно-уметничко друштво Шумадија основано је са циљем да чува и негује традицију народне игре, музике и ношње нашег краја. Кроз рад са децом, омладином и одраслима, друштво данас окупља неколико стотина чланова."
-            : "KUD Šumadija was founded to preserve and nurture the tradition of folk dance, music, and costume of our region. Through work with children, youth, and adults, the society today brings together several hundred members."}
+            ? "Културно-уметничко друштво Шумадија Влашка основано је са циљем да чува и негује традицију народне игре, музике и ношње нашег краја. Кроз рад са децом, омладином и одраслима, друштво данас окупља неколико стотина чланова."
+            : "KUD Šumadija Vlaška was founded to preserve and nurture the tradition of folk dance, music, and costume of our region. Through work with children, youth, and adults, the society today brings together several hundred members."}
         </p>
         <p>
           {isSr
@@ -1244,7 +1244,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: locale === "sr" ? "Секције | КУД Шумадија" : "Sections | KUD Šumadija",
+    title: locale === "sr" ? "Секције | КУД Шумадија Влашка" : "Sections | KUD Šumadija Vlaška",
   };
 }
 
@@ -1325,7 +1325,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: locale === "sr" ? "Репертоар | КУД Шумадија" : "Repertoire | KUD Šumadija",
+    title: locale === "sr" ? "Репертоар | КУД Шумадија Влашка" : "Repertoire | KUD Šumadija Vlaška",
   };
 }
 
@@ -1413,7 +1413,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: locale === "sr" ? "Вести | КУД Шумадија" : "News | KUD Šumadija",
+    title: locale === "sr" ? "Вести | КУД Шумадија Влашка" : "News | KUD Šumadija Vlaška",
   };
 }
 
@@ -1476,7 +1476,7 @@ export async function generateMetadata({
   const item = newsItems.find((n) => n.slug === slug);
   if (!item) return {};
   return {
-    title: `${item.title[locale]} | КУД Шумадија`,
+    title: `${item.title[locale]} | КУД Шумадија Влашка`,
     description: item.excerpt[locale],
   };
 }
@@ -1509,7 +1509,7 @@ export default async function NewsDetailPage({
 Run: `npm run build`
 Expected: build succeeds, `out/sr/vesti/godisnji-koncert-2026/index.html` exists.
 
-Run: `grep -o "Годишњи концерт КУД Шумадија одржан пред пуном салом" out/sr/vesti/godisnji-koncert-2026/index.html`
+Run: `grep -o "Годишњи концерт КУД Шумадија Влашка одржан пред пуном салом" out/sr/vesti/godisnji-koncert-2026/index.html`
 Expected: prints the title.
 
 Run: `grep -o "annual concert held before a full house" out/en/vesti/godisnji-koncert-2026/index.html`
@@ -1549,7 +1549,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: locale === "sr" ? "Догађаји | КУД Шумадија" : "Events | KUD Šumadija",
+    title: locale === "sr" ? "Догађаји | КУД Шумадија Влашка" : "Events | KUD Šumadija Vlaška",
   };
 }
 
@@ -1600,7 +1600,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: locale === "sr" ? "Галерија | КУД Шумадија" : "Gallery | KUD Šumadija",
+    title: locale === "sr" ? "Галерија | КУД Шумадија Влашка" : "Gallery | KUD Šumadija Vlaška",
   };
 }
 
@@ -1673,7 +1673,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: locale === "sr" ? "Контакт | КУД Шумадија" : "Contact | KUD Šumadija",
+    title: locale === "sr" ? "Контакт | КУД Шумадија Влашка" : "Contact | KUD Šumadija Vlaška",
   };
 }
 
@@ -1818,8 +1818,8 @@ Replace:
 
 ```tsx
 export const metadata: Metadata = {
-  title: "КУД Шумадија",
-  description: "Културно-уметничко друштво Шумадија",
+  title: "КУД Шумадија Влашка",
+  description: "Културно-уметничко друштво Шумадија Влашка",
 };
 ```
 
@@ -1834,13 +1834,13 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     title: {
-      default: "КУД Шумадија",
+      default: "КУД Шумадија Влашка",
       template: "%s",
     },
     description:
       locale === "sr"
         ? "Културно-уметничко друштво Шумадија"
-        : "KUD Šumadija Cultural and Artistic Society",
+        : "KUD Šumadija Vlaška Cultural and Artistic Society",
     alternates: {
       languages: {
         sr: "/sr",
@@ -1897,7 +1897,7 @@ Kada budu dostupne, ubaci ih ovde (npr. `hero.jpg`, `news-1.jpg`,
 - [ ] **Step 2: Create `README.md`**
 
 ```markdown
-# KUD Šumadija — sajt
+# KUD Šumadija Vlaška — sajt
 
 Statički, dvojezičan (српски ћирилицом / engleski) sajt za Kulturno-umetničko
 društvo Šumadija, napravljen u Next.js-u.

@@ -1,8 +1,8 @@
-# KUD Šumadija — sajt: dizajn
+# KUD Šumadija Vlaška — sajt: dizajn
 
 ## Cilj
 
-Statički, moderan, mobile-first sajt za Kulturno-umetničko društvo Šumadija,
+Statički, moderan, mobile-first sajt za Kulturno-umetničko društvo Šumadija Vlaška,
 tematski inspirisan narodnom kulturom, dvojezičan (српски/ћирилица default,
 енглески switch), lak za deploy na Vercel.
 
