@@ -1,0 +1,48 @@
+import { setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { Link } from "@/i18n/navigation";
+import { routing, type AppLocale } from "@/i18n/routing";
+import { newsItems } from "@/content/news";
+import type { Metadata } from "next";
+
+export function generateStaticParams() {
+  return routing.locales.flatMap((locale) =>
+    newsItems.map((item) => ({ locale, slug: item.slug }))
+  );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: AppLocale; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const item = newsItems.find((n) => n.slug === slug);
+  if (!item) return {};
+  return {
+    title: `${item.title[locale]} | КУД Шумадија Влашка`,
+    description: item.excerpt[locale],
+  };
+}
+
+export default async function NewsDetailPage({
+  params,
+}: {
+  params: Promise<{ locale: AppLocale; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const item = newsItems.find((n) => n.slug === slug);
+  if (!item) notFound();
+
+  return (
+    <article className="mx-auto max-w-3xl px-4 py-16">
+      <time className="text-xs uppercase tracking-wide text-[var(--color-navy)]/50">{item.date}</time>
+      <h1 className="text-3xl font-bold mt-2 mb-6">{item.title[locale]}</h1>
+      <p className="text-[var(--color-navy)]/90 leading-relaxed whitespace-pre-line">{item.body[locale]}</p>
+      <Link href="/vesti" className="inline-block mt-8 text-[var(--color-bordo)] font-semibold hover:underline">
+        {locale === "sr" ? "← Назад на вести" : "← Back to news"}
+      </Link>
+    </article>
+  );
+}
