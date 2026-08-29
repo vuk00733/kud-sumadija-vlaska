@@ -1832,6 +1832,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
+    metadataBase: new URL("https://kud-sumadija.rs"),
     title: {
       default: "КУД Шумадија Влашка",
       template: "%s",
@@ -1850,6 +1851,12 @@ export async function generateMetadata({
 }
 ```
 
+> **Note:** `metadataBase` is required for Next.js to resolve the relative
+> `alternates.languages` paths (`/sr`, `/en`) into absolute URLs in the
+> rendered `<link rel="alternate" hreflang="...">` tags. Without it, Next.js
+> emits relative hrefs, which most search engines ignore per the hreflang
+> spec — silently defeating this task's SEO purpose.
+
 - [ ] **Step 4: Verify build**
 
 Run: `npm run build`
@@ -1860,6 +1867,9 @@ Expected: prints the matching URL.
 
 Run: `cat out/robots.txt`
 Expected: contains `Sitemap: https://kud-sumadija.rs/sitemap.xml`
+
+Run: `grep -o '<link rel="alternate" hrefLang="sr" href="[^"]*"' out/sr/index.html`
+Expected: the `href` value is an absolute URL (`https://kud-sumadija.rs/sr`), not a relative path (`/sr`) — confirms `metadataBase` correctly resolved the hreflang links.
 
 - [ ] **Step 5: Commit**
 
