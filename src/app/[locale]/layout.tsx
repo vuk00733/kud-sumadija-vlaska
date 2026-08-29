@@ -17,6 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
+    metadataBase: new URL("https://kud-sumadija.rs"),
     title: {
       default: "КУД Шумадија Влашка",
       template: "%s",
