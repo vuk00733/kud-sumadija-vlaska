@@ -18,7 +18,7 @@ export function Header() {
   const t = useTranslations("nav");
 
   return (
-    <header className="relative border-b border-[var(--color-gold)]/40 bg-[var(--color-cream)]">
+    <header className="relative z-50 border-b border-[var(--color-gold)]/40 bg-[var(--color-cream)]">
       <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
         <Link href="/" className="font-bold text-lg text-[var(--color-bordo)]">
           КУД Шумадија Влашка
