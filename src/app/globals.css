@@ -1,0 +1,20 @@
+:root {
+  --color-cream: #faf6ef;
+  --color-bordo: #7a1f2b;
+  --color-bordo-dark: #5e1620;
+  --color-gold: #c9a24b;
+  --color-navy: #1f2a3c;
+  --font-heading: "Georgia", "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-navy);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+}
+
