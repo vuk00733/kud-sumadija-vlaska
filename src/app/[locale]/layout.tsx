@@ -10,10 +10,29 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: "КУД Шумадија Влашка",
-  description: "Културно-уметничко друштво Шумадија Влашка",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: {
+      default: "КУД Шумадија Влашка",
+      template: "%s",
+    },
+    description:
+      locale === "sr"
+        ? "Културно-уметничко друштво Шумадија Влашка"
+        : "KUD Šumadija Vlaška Cultural and Artistic Society",
+    alternates: {
+      languages: {
+        sr: "/sr",
+        en: "/en",
+      },
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,
