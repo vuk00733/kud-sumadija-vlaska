@@ -445,8 +445,8 @@ Expected: prints `Почетна`
 Run: `grep -o "Home" out/en/index.html`
 Expected: prints `Home`
 
-Run: `cat out/index.html | grep -o "window.location.replace"`
-Expected: a match (confirms static client-side redirect from `/` to `/sr` was generated)
+Run: `grep -o "NEXT_REDIRECT;replace;/sr" out/index.html`
+Expected: a match (confirms the App Router embedded a client-side redirect digest from `/` to `/sr`; on this Next.js version the client runtime processes this digest via `router.replace()` during hydration rather than an inlined `window.location.replace` string)
 
 - [ ] **Step 10: Commit**
 
