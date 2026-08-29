@@ -11,7 +11,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   return {
-    title: locale === "sr" ? "Događaji | КУД Шумадија Влашка" : "Events | KUD Šumadija Vlaška",
+    title: locale === "sr" ? "Догађаји | КУД Шумадија Влашка" : "Events | KUD Šumadija Vlaška",
   };
 }
 
@@ -27,7 +27,7 @@ export default async function EventsPage({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16">
-      <SectionHeading eyebrow={isSr ? "Događaji" : "Events"} title={isSr ? "Предстојећи наступи" : "Upcoming performances"} />
+      <SectionHeading eyebrow={isSr ? "Догађаји" : "Events"} title={isSr ? "Предстојећи наступи" : "Upcoming performances"} />
       <div className="space-y-6">
         {sorted.map((event) => (
           <div key={event.id} className="flex gap-5 border-l-4 border-[var(--color-gold)] pl-5 py-2">
