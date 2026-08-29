@@ -1,4 +1,6 @@
-:root {
+@import "tailwindcss";
+
+@theme {
   --color-cream: #faf6ef;
   --color-bordo: #7a1f2b;
   --color-bordo-dark: #5e1620;
