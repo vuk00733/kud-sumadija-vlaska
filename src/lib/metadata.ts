@@ -36,7 +36,7 @@ export function buildMetadata({
       title: fullTitle,
       description,
       url: currentPath,
-      siteName: ORG_NAME.sr,
+      siteName: ORG_NAME[locale],
       locale: locale === "sr" ? "sr_RS" : "en_US",
       type: "website",
     },
