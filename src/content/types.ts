@@ -37,4 +37,5 @@ export type GalleryItem = {
   id: string;
   category: Localized;
   caption: Localized;
+  imageUrl: string;
 };

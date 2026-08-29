@@ -2,13 +2,14 @@ import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { routing, type AppLocale } from "@/i18n/routing";
-import { newsItems } from "@/content/news";
+import { getAllNewsSlugs, getNewsItemBySlug } from "@/lib/sanity";
 import { buildMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const slugs = await getAllNewsSlugs();
   return routing.locales.flatMap((locale) =>
-    newsItems.map((item) => ({ locale, slug: item.slug }))
+    slugs.map((slug) => ({ locale, slug }))
   );
 }
 
@@ -18,7 +19,7 @@ export async function generateMetadata({
   params: Promise<{ locale: AppLocale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const item = newsItems.find((n) => n.slug === slug);
+  const item = await getNewsItemBySlug(slug);
   if (!item) return {};
   return buildMetadata({
     locale,
@@ -35,7 +36,7 @@ export default async function NewsDetailPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const item = newsItems.find((n) => n.slug === slug);
+  const item = await getNewsItemBySlug(slug);
   if (!item) notFound();
 
   return (

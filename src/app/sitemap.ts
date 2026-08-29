@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
-import { newsItems } from "@/content/news";
+import { getNewsItems } from "@/lib/sanity";
 import { SITE_URL } from "@/lib/metadata";
 
 export const dynamic = "force-static";
@@ -16,8 +16,9 @@ const staticPaths = [
   "kontakt",
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
+  const newsItems = await getNewsItems();
 
   for (const locale of routing.locales) {
     for (const path of staticPaths) {

@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { SectionHeading } from "@/components/SectionHeading";
-import { eventItems } from "@/content/events";
+import { getEventItems } from "@/lib/sanity";
 import { buildMetadata } from "@/lib/metadata";
 import type { AppLocale } from "@/i18n/routing";
 import type { Metadata } from "next";
@@ -32,6 +32,7 @@ export default async function EventsPage({
   const isSr = locale === "sr";
   // Static export freezes "today" at build time — redeploy periodically to keep this accurate.
   const today = new Date().toISOString().slice(0, 10);
+  const eventItems = await getEventItems();
   const sorted = [...eventItems]
     .filter((event) => event.date >= today)
     .sort((a, b) => (a.date > b.date ? 1 : -1));

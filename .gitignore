@@ -6,3 +6,6 @@ out
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+studio/node_modules
+studio/dist
+.dirigent/

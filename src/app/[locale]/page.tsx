@@ -3,7 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { SectionHeading } from "@/components/SectionHeading";
 import { OrnamentDivider } from "@/components/OrnamentDivider";
 import { PlaceholderArt } from "@/components/PlaceholderArt";
-import { newsItems } from "@/content/news";
+import { getNewsItems } from "@/lib/sanity";
 import { buildMetadata } from "@/lib/metadata";
 import type { AppLocale } from "@/i18n/routing";
 import type { Metadata } from "next";
@@ -36,6 +36,7 @@ export default async function HomePage({
   const tCommon = await getTranslations("common");
 
   const isSr = locale === "sr";
+  const newsItems = await getNewsItems();
 
   return (
     <div>

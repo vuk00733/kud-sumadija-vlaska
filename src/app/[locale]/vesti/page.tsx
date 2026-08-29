@@ -2,7 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { SectionHeading } from "@/components/SectionHeading";
 import { PlaceholderArt } from "@/components/PlaceholderArt";
 import { Link } from "@/i18n/navigation";
-import { newsItems } from "@/content/news";
+import { getNewsItems } from "@/lib/sanity";
 import { buildMetadata } from "@/lib/metadata";
 import type { AppLocale } from "@/i18n/routing";
 import type { Metadata } from "next";
@@ -33,6 +33,7 @@ export default async function NewsListPage({
   setRequestLocale(locale);
   const isSr = locale === "sr";
 
+  const newsItems = await getNewsItems();
   const sorted = [...newsItems].sort((a, b) => (a.date < b.date ? 1 : -1));
 
   return (
