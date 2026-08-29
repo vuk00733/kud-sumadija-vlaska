@@ -377,13 +377,18 @@ export default function RootPage() {
 
 - [ ] **Step 7: Create `src/app/[locale]/layout.tsx`**
 
+> **Note:** `src/app/layout.tsx` (the true App Router root layout, created in Task 1
+> because `src/app/page.tsx` lives outside the `[locale]` segment and Next.js
+> requires exactly one root layout with `<html>`/`<body>`) already owns those
+> tags. This nested layout must NOT redeclare `<html>`/`<body>` — doing so
+> produces invalid nested HTML. It only wraps children in the i18n provider.
+
 ```tsx
 import type { Metadata } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import "../globals.css";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -407,13 +412,7 @@ export default async function LocaleLayout({
   }
   setRequestLocale(locale);
 
-  return (
-    <html lang={locale}>
-      <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
-      </body>
-    </html>
-  );
+  return <NextIntlClientProvider>{children}</NextIntlClientProvider>;
 }
 ```
 
@@ -1003,16 +1002,16 @@ export function Footer() {
 
 - [ ] **Step 5: Modify `src/app/[locale]/layout.tsx` to render Header/Footer**
 
-Replace the `<body>` block:
+Replace the `return` statement's `<NextIntlClientProvider>` block:
 
 ```tsx
-      <body>
-        <NextIntlClientProvider>
-          <Header />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
+  return (
+    <NextIntlClientProvider>
+      <Header />
+      <main className="min-h-screen">{children}</main>
+      <Footer />
+    </NextIntlClientProvider>
+  );
 ```
 
 Add imports at top of the file:
@@ -1839,7 +1838,7 @@ export async function generateMetadata({
     },
     description:
       locale === "sr"
-        ? "Културно-уметничко друштво Шумадија"
+        ? "Културно-уметничко друштво Шумадија Влашка"
         : "KUD Šumadija Vlaška Cultural and Artistic Society",
     alternates: {
       languages: {
